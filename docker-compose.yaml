@@ -1,0 +1,45 @@
+version: '2'
+
+services:
+  api:
+    build: ./api
+    container_name: upload-api
+    environment:
+      PATH_FILES: /home/victor/Documentos/Project-Senai-Final/upload-las
+      PATH_FOLDER: /uploads/potree-senai/pointclouds
+      PATH_HTML: /uploads/potree-senai/examples
+      PATH_CONVERTER: ./api/src/service/build/PotreeConverter
+    links:
+      - mongo
+    ports:
+        - "3001:3001"
+    networks:
+        - mongo-compose-network
+    volumes:
+        - /uploads:/uploads
+    depends_on:
+      - mongo
+
+  frontend:
+    build: ./frontend
+    container_name: upload-frontend
+    ports:
+        - "3000:3000"
+    networks:
+        - mongo-compose-network
+    depends_on:
+      - mongo
+      - api
+
+  mongo:
+    image: mongo
+    container_name: upload-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - /home/mongodb/bkp/MongoDB:/data/db
+    networks:
+      - mongo-compose-network
+
+networks:
+    mongo-compose-network:
