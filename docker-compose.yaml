@@ -24,7 +24,7 @@ services:
     build: ./frontend
     container_name: upload-frontend
     ports:
-        - "3020:3000"
+        - "3000:3000"
     networks:
         - mongo-compose-network
     depends_on:
