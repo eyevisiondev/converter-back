@@ -31,7 +31,7 @@ const columns = [
 
 const { progress, name, action, headers } = {
   name: "file",
-  action: "http://localhost:3001/posts",
+  action: "http://3.129.57.240:3001/posts",
   headers: {
     authorization: "authorization-text",
   },
